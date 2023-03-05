@@ -2,7 +2,7 @@
 
 import os
 import json
-from flask import Flask, redirect, flash
+from flask import Flask, redirect
 from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
@@ -60,8 +60,6 @@ def index():
     global full_recipes
     filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
     full_recipes = load_recipes_list(filename)
-    st = str(len(full_recipes))
-    flash(st)
     return render_template('index.html')
 
 
