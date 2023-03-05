@@ -8,10 +8,10 @@ from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
 from wtforms.validators import InputRequired
 
-app = Flask(__name__)
+#full_recipes = []
 my_secret_key = os.urandom(12)
+app = Flask(__name__)
 app.config['SECRET_KEY'] = my_secret_key
-full_recipes = []
 
 
 class Recipe:
@@ -57,10 +57,7 @@ def load_recipes_list(recipes_file):
 
 @app.route('/')
 def index():
-    filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
-    with open(filename, 'r', encoding='utf-8') as infile:
-        data = json.load(infile)
-    st = str(type(data)) + ';' + str(len(data))
+    st = str(len(full_recipes))
     flash(st)
     return render_template('index.html')
 
@@ -96,5 +93,6 @@ def page_not_found(e):
 
 if __name__ == "__main__":
     filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
+    global full_recipes
     full_recipes = load_recipes_list(filename)
     app.run(debug=True)
