@@ -57,6 +57,9 @@ def load_recipes_list(recipes_file):
 
 @app.route('/')
 def index():
+    global full_recipes
+    filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
+    full_recipes = load_recipes_list(filename)
     st = str(len(full_recipes))
     flash(st)
     return render_template('index.html')
@@ -92,6 +95,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
-    full_recipes = load_recipes_list(filename)
     app.run(debug=True)
