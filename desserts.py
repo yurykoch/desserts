@@ -72,7 +72,7 @@ def questions():
 
 @app.route('/recipes_list/<int:recipes_list_id>')
 def recipes_list(recipes_list_id):
-    short_recipes = list((x for x in full_recipes if x['number'] == 1))
+    short_recipes = list((x for x in full_recipes if x['number'] == recipes_list_id))
     return render_template('recipes_list.html', recipes=short_recipes)
 
 
