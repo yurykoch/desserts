@@ -2,7 +2,7 @@
 
 import os
 import json
-from flask import Flask, redirect
+from flask import Flask, redirect, flash
 from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
@@ -57,6 +57,7 @@ def load_recipes_list(recipes_file):
 
 @app.route('/')
 def index():
+    flash('full_recipes.count = ' + str(len(full_recipes)))
     return render_template('index.html')
 
 
