@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os
 import json
 import logging
+import secrets
 from flask import Flask, redirect, flash, url_for
 from flask import render_template
 from flask_wtf import FlaskForm
@@ -11,8 +11,7 @@ from wtforms.validators import InputRequired
 
 full_recipes = []
 app = Flask(__name__)
-my_secret_key = os.urandom(12)
-app.config['SECRET_KEY'] = my_secret_key
+app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
 
 
