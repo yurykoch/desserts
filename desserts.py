@@ -57,9 +57,6 @@ def load_recipes_list(recipes_file):
 
 @app.route('/')
 def index():
-    #full_recipes = load_recipes_list('recipes_list.json')
-    #recipe = next((x for x in full_recipes if x['title'] == 'Синнабоны'), None)
-    #return render_template('recipe_full.html', recipe=recipe)
     return render_template('index.html')
 
 
