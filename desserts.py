@@ -90,5 +90,5 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    full_recipes = load_recipes_list('static\\recipes_list.json')
+    full_recipes = load_recipes_list('static/recipes_list.json')
     app.run(debug=True)
