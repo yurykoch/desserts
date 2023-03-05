@@ -2,7 +2,7 @@
 
 import os
 import json
-from flask import Flask, redirect, flash
+from flask import Flask, redirect, flash, url_for
 from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
@@ -73,6 +73,7 @@ def questions():
             form.q1.data * 16 + form.q2.data * 8 + form.q3.data * 4 + form.q4.data * 2 + form.q5.data + 1
         flash('recipes_list_id = ' + str(recipes_list_id))
         #return redirect('/recipes_list/' + str(recipes_list_id))
+        return redirect(url_for('index'))
     return render_template('questions.html', form=form)
 
 
