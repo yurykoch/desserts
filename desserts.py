@@ -57,9 +57,11 @@ def load_recipes_list(recipes_file):
 
 @app.route('/')
 def index():
-    #flash('full_recipes.count = ' + str(len(full_recipes)))
     filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
-    flash(filename)
+    with open(filename, 'r', encoding='utf-8') as infile:
+        data = json.load(infile)
+    st = str(type(data)) + ';' + str(len(data))
+    flash(st)
     return render_template('index.html')
 
 
