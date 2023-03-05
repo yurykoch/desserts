@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Рецепты по настроению</title>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/png">
+	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+
+<body>
+<div id="area">
+<h1>Рецепты по настроению</h1>
+{% block content %}{% endblock %}
+</div>
+<footer>
+<p>&#169; 2023 Кочерова Екатерина</p>
+</footer>
+</body>
+</html>

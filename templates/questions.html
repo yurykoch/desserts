@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="textblock">
+	<form action="" method="post" novalidate>
+		{{ form.hidden_tag() }}
+
+		<p class="left">{{form.q1.label}}<br>
+			{% for subfield in form.q1 %}
+				<tr>
+					<td>{{ subfield }}</td>
+					<td>{{ subfield.label }}</td>
+				</tr>
+			{% endfor %}
+			{% for error in form.q1.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p class="left">{{form.q2.label}}<br>
+			{% for subfield in form.q2 %}
+				<tr>
+					<td>{{ subfield }}</td>
+					<td>{{ subfield.label }}</td>
+				</tr>
+			{% endfor %}
+			{% for error in form.q2.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p class="left">{{form.q3.label}}<br>
+			{% for subfield in form.q3 %}
+				<tr>
+					<td>{{ subfield }}</td>
+					<td>{{ subfield.label }}</td>
+				</tr>
+			{% endfor %}
+			{% for error in form.q3.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p class="left">{{form.q4.label}}<br>
+			{% for subfield in form.q4 %}
+				<tr>
+					<td>{{ subfield }}</td>
+					<td>{{ subfield.label }}</td>
+				</tr>
+			{% endfor %}
+			{% for error in form.q4.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<p class="left">{{form.q5.label}}<br>
+			{% for subfield in form.q5 %}
+				<tr>
+					<td>{{ subfield }}</td>
+					<td>{{ subfield.label }}</td>
+				</tr>
+			{% endfor %}
+			{% for error in form.q5.errors %}
+				<span style="color: red;">[{{ error }}]</span>
+			{% endfor %}
+		</p>
+
+		<br><br><br>
+		{{ form.submit() }}
+	</form>
+</div>
+{% endblock %}

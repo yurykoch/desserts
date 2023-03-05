@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="textblock">
+	<table>
+		{% for recipe in recipes %}
+			<tr>
+				<td><a href="{{ url_for('recipe_full', recipe_title=recipe['title'])}}">
+					<img src="{{ url_for('static', filename=recipe['photo']) }}" width="180" height="180">
+				</a></td>
+				<td width="100%">
+					<h2><a href="{{ url_for('recipe_full', recipe_title=recipe['title'])}}">
+						{{ recipe['title'] }}
+					</a></h2>
+					<p class="left">Время приготовления: {{ recipe['time'] }}</p>
+					<p class="left">{{ recipe['place'] }}</p>
+					<form class="left">
+						<select>
+							<option>Ингридиенты</option>
+								{% for ingredient in recipe['ingredients'] %}
+									{% for k in ingredient.keys() %}
+										<option>{{ k }}</option>
+									{% endfor %}
+								{% endfor %}
+						</select>
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>
+<br>
+<br>
+<br>
+{% endblock %}
