@@ -2,7 +2,7 @@
 
 import os
 import json
-from flask import Flask, redirect, flash
+from flask import Flask, redirect, flash, url_for
 from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
@@ -91,5 +91,6 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    full_recipes = load_recipes_list('static/recipes_list.json')
+    filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
+    full_recipes = load_recipes_list(filename)
     app.run(debug=True)
