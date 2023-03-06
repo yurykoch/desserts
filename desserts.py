@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os
 import logging
 import secrets
-from flask import Flask, redirect, flash, url_for
+from flask import Flask, redirect, flash
 from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
