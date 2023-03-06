@@ -3,7 +3,7 @@
 {% block content %}
 <div class="textblock">
 	<h2><center>{{ recipe['title'] }}</center></h2>
-	<img src="{{ url_for('static', filename=recipe['photo']) }}" width="320" height="240">
+	<img src="{{ url_for('static', filename=recipe['photo']) }}" width="320" height="320">
 	<p class="left">ИНГРЕДИЕНТЫ</p>
 	<table class="left" width="70%">
 		{% for ingredient in recipe['ingredients'] %}
