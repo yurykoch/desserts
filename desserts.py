@@ -51,6 +51,7 @@ def index():
 
 
 @app.route('/questions', methods=['GET', 'POST'])
+@csrf.exempt
 def questions():
     form = QuestionsForm()
     if form.validate_on_submit():
