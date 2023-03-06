@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json
+import os
 import logging
 import secrets
 from flask import Flask, redirect, flash, url_for
@@ -8,22 +8,12 @@ from flask import render_template
 from flask_wtf import FlaskForm
 from wtforms import RadioField, SubmitField
 from wtforms.validators import InputRequired
+from recipes import Recipe
 
-full_recipes = []
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
-
-
-class Recipe:
-    def __init__(self, number, title, photo, text, time, place, ingredients):
-        self.number = number
-        self.title = title
-        self.photo = photo
-        self.text = text
-        self.time = time
-        self.place = place
-        self.ingredients = ingredients
+full_recipes = Recipe.load_json('static/recipes_list.json')
 
 
 class QuestionsForm(FlaskForm):
@@ -50,19 +40,9 @@ class QuestionsForm(FlaskForm):
     submit = SubmitField('Принять')
 
 
-def load_recipes_list(recipes_file):
-    with open(recipes_file, 'r', encoding='utf-8') as infile:
-        data = json.load(infile)
-    return list(data)
-
-
 @app.route('/')
 def index():
-    global full_recipes
-    filename = os.path.join(os.path.dirname(app.instance_path), 'static', 'recipes_list.json')
-    full_recipes = load_recipes_list(filename)
-    st = str(len(full_recipes))
-    flash(filename + '; ' + st)
+    flash(str(len(full_recipes)))
     return render_template('index.html')
 
 
@@ -73,8 +53,8 @@ def questions():
         recipes_list_id = \
             form.q1.data * 16 + form.q2.data * 8 + form.q3.data * 4 + form.q4.data * 2 + form.q5.data + 1
         flash('recipes_list_id = ' + str(recipes_list_id))
-        #return redirect('/recipes_list/' + str(recipes_list_id))
-        return redirect(url_for('index'))
+        return redirect('/recipes_list/' + str(recipes_list_id))
+        # return redirect(url_for('index'))
     return render_template('questions.html', form=form)
 
 
