@@ -5,12 +5,17 @@ import secrets
 from flask import Flask, redirect, flash
 from flask import render_template
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 from wtforms import RadioField, SubmitField
 from wtforms.validators import InputRequired
 from recipes import Recipe
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+
+csrf = CSRFProtect(app)
+csrf.init_app(app)
+
 logging.basicConfig(filename='error.log', level=logging.DEBUG)
 full_recipes = Recipe.load_json('static/recipes_list.json')
 
