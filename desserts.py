@@ -12,6 +12,7 @@ from recipes import Recipe
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 
 csrf = CSRFProtect(app)
 csrf.init_app(app)
