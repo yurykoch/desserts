@@ -2,7 +2,7 @@
 
 import logging
 import secrets
-from flask import Flask, redirect, flash
+from flask import Flask, redirect
 from flask import render_template
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
@@ -48,7 +48,6 @@ class QuestionsForm(FlaskForm):
 
 @app.route('/')
 def index():
-    flash(str(len(full_recipes)))
     return render_template('index.html')
 
 
@@ -59,9 +58,7 @@ def questions():
     if form.validate_on_submit():
         recipes_list_id = \
             form.q1.data * 16 + form.q2.data * 8 + form.q3.data * 4 + form.q4.data * 2 + form.q5.data + 1
-        flash('recipes_list_id = ' + str(recipes_list_id))
         return redirect('/recipes_list/' + str(recipes_list_id))
-        # return redirect(url_for('index'))
     return render_template('questions.html', form=form)
 
 
