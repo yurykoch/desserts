@@ -27,7 +27,7 @@ class QuestionsForm(FlaskForm):
                     coerce=int,
                     choices=[(0, 'Хорошо'), (1, 'Плохо')],
                     validators=[InputRequired()])
-    q2 = RadioField('Вы хотели бы поддержать атмосферу празника или сегодня обычный день?',
+    q2 = RadioField('Вы хотели бы поддержать атмосферу праздника или сегодня обычный день?',
                     coerce=int,
                     choices=[(0, 'Праздник'), (1, 'Обычный день')],
                     validators=[InputRequired()])
@@ -39,9 +39,9 @@ class QuestionsForm(FlaskForm):
                     coerce=int,
                     choices=[(0, 'Раздражен'), (1, 'Всё хорошо')],
                     validators=[InputRequired()])
-    q5 = RadioField('Вы хотели бы поднять свое настроение или оставить как есть?',
+    q5 = RadioField('Вы сторонник здорового питания?',
                     coerce=int,
-                    choices=[(0, 'Поднять настроение'), (1, 'Оставить как есть')],
+                    choices=[(0, 'Да'), (1, 'Нет')],
                     validators=[InputRequired()])
     submit = SubmitField('Принять')
 
