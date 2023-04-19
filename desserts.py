@@ -1,28 +1,25 @@
 # -*- coding: utf-8 -*-
 
-import os
-import json
+import logging
+import secrets
 from flask import Flask, redirect
 from flask import render_template
 from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
 from wtforms import RadioField, SubmitField
 from wtforms.validators import InputRequired
+from recipes import Recipe
 
 app = Flask(__name__)
-my_secret_key = os.urandom(12)
-app.config['SECRET_KEY'] = my_secret_key
-full_recipes = []
+app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
+app.config['WTF_CSRF_CHECK_DEFAULT'] = False
+app.config['WTF_CSRF_ENABLED'] = False
 
+csrf = CSRFProtect(app)
+csrf.init_app(app)
 
-class Recipe:
-    def __init__(self, number, title, photo, text, time, place, ingredients):
-        self.number = number
-        self.title = title
-        self.photo = photo
-        self.text = text
-        self.time = time
-        self.place = place
-        self.ingredients = ingredients
+logging.basicConfig(filename='error.log', level=logging.DEBUG)
+full_recipes = Recipe.load_json('static/recipes_list.json')
 
 
 class QuestionsForm(FlaskForm):
@@ -30,7 +27,7 @@ class QuestionsForm(FlaskForm):
                     coerce=int,
                     choices=[(0, 'Хорошо'), (1, 'Плохо')],
                     validators=[InputRequired()])
-    q2 = RadioField('Вы хотели бы поддержать атмосферу празника или сегодня обычный день?',
+    q2 = RadioField('Вы хотели бы поддержать атмосферу праздника или сегодня обычный день?',
                     coerce=int,
                     choices=[(0, 'Праздник'), (1, 'Обычный день')],
                     validators=[InputRequired()])
@@ -42,17 +39,11 @@ class QuestionsForm(FlaskForm):
                     coerce=int,
                     choices=[(0, 'Раздражен'), (1, 'Всё хорошо')],
                     validators=[InputRequired()])
-    q5 = RadioField('Вы хотели бы поднять свое настроение или оставить как есть?',
+    q5 = RadioField('Вы сторонник здорового питания?',
                     coerce=int,
-                    choices=[(0, 'Поднять настроение'), (1, 'Оставить как есть')],
+                    choices=[(0, 'Да'), (1, 'Нет')],
                     validators=[InputRequired()])
     submit = SubmitField('Принять')
-
-
-def load_recipes_list(recipes_file):
-    with open(recipes_file, 'r', encoding='utf-8') as infile:
-        data = json.load(infile)
-    return list(data)
 
 
 @app.route('/')
@@ -61,6 +52,7 @@ def index():
 
 
 @app.route('/questions', methods=['GET', 'POST'])
+@csrf.exempt
 def questions():
     form = QuestionsForm()
     if form.validate_on_submit():
@@ -72,7 +64,7 @@ def questions():
 
 @app.route('/recipes_list/<int:recipes_list_id>')
 def recipes_list(recipes_list_id):
-    short_recipes = list((x for x in full_recipes if x['number'] == 1))
+    short_recipes = list((x for x in full_recipes if x['number'] == recipes_list_id))
     return render_template('recipes_list.html', recipes=short_recipes)
 
 
@@ -90,5 +82,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    full_recipes = load_recipes_list('static\\recipes_list.json')
     app.run(debug=True)

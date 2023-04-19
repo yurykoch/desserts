@@ -3,7 +3,8 @@
 {% block content %}
 <div class="textblock">
 	<form action="" method="post" novalidate>
-		{{ form.hidden_tag() }}
+		<!-- {{ form.hidden_tag() }} -->
+		<!-- {{ form.csrf_token }} -->
 
 		<p class="left">{{form.q1.label}}<br>
 			{% for subfield in form.q1 %}
