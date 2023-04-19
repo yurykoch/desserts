@@ -2,7 +2,7 @@
 #### Author: Ekaterina Kocherova
 #### Version 0.01-devel
 
-Flask site for choosing desserts
+Flask site for choosing desserts - https://desserts.homyk.keenetic.pro/
 
 ## Installation
 
